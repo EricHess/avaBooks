@@ -9,8 +9,11 @@ router.get('/', (req, res) => {
 router
 .get('/book', (req, res) => {
 
-  var cursor = db.collection('books').find().toArray(function(err, results){
-      res.sendFile('viewBooks.html', { root: "./views" });
+  db.collection('books').find().toArray((err, results) =>{
+      if(err) return console.log(err);
+
+      // render the view for the view books
+      res.render('viewBooks.ejs', {books: results})
   });
 })
 

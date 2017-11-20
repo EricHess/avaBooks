@@ -8,15 +8,17 @@ router.get('/', (req, res) => {
 
 //Create / Book route
 router
-.get('/book', (req, res) => {
-  res.send("book creation route without post")
-})
 .post('/book', (req, res) =>{
   db.collection('books').save(req.body, (err, result) => {
     res.redirect("/");
   })
-
 })
 
+router
+.post('/user', (req, res) =>{
+  db.collection('users').save(req.body, (err, result) => {
+    res.redirect("/");
+  })
+})
 
 module.exports = router

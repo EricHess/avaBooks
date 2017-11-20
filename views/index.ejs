@@ -17,7 +17,7 @@
 </ul>
 
 <h3>Search For Books</h3>
-<ul>
+<ul>      
   <li>By any field</li>
 </ul>
 
@@ -26,7 +26,6 @@
 <ul>
   <li>Make it active</li>
 </ul>
-
 
 <h3>Enter pages read</h3>
 <ul>
@@ -43,6 +42,19 @@
   <li>Send email of information</li>
 </ul>
 
+<form action="/user/start" method="POST">
+  <% for (var i = 0 ; i < context.users.length; i++) { %>
+    <input name="users" value="<%= context.users[i]._id %>" type="radio" id="<%= context.users[i]._id %>">
+    <label for="<%= context.users[i]._id %>"><%= context.users[i].name %></label>
+    
+  <%}%>
+  <input type="submit" value="Submit" />
+</form>
+
+Don't see your name?
+<form action="/create/user" method="POST">
+    <input type="text" placeholder="name" name="name">
+</form>
 
 
 <form action="/create/book" method="POST">

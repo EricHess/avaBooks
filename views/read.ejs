@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>View the books here</title>
+</head>
+<body>
+
+
+<h3>Below is the information from the books that you can view</h3>
+<!-- <h4>Filter the below list of books to find the one you're reading:</h4>
+<input type="text" placeholder="Search..." /> -->
+
+<section class="books">
+  <%= console.log(context) %>
+
+  <h2>You Are Reading: <%= context[0].title %></h2>
+  <h2>It Has: <%= context[0].numberOfPages %> Pages</h2>
+  <h2>You have read: <%= context[0].numberOfPages %>  (NEED TO CREATE) Pages</h2>
+
+  <h3>All Done?</h3>
+  <form action="book/read/<%= context[0]._id %>">
+      I have read: <input type="number" name="pagesRead" placeholder="Enter number of pages read today"/> Pages
+      <br />
+      <input type="hidden" name="bookId" value="<%= context[0]._id %>" />
+      <input type="Submit" value="Finish Reading" />
+  </form>
+  
+</section>
+
+<h3>STEPS TO CREATE</h3>
+<p>When book is clicked, open "Start Reading" modal.. </p>
+<p>What page are you starting on? (Need to track)</p>
+<p>How long are you going to read? Intervals, and unknown (Need to track daily)</p>
+<p>Start Reading!</p>
+<p>Submit modal.</p>
+<p>Show a timer with the listed interval (if selected)</p>
+
+</body>
+</html>
