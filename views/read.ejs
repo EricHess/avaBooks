@@ -11,17 +11,17 @@
 <input type="text" placeholder="Search..." /> -->
 
 <section class="books">
-  <%= console.log(context) %>
-
-  <h2>You Are Reading: <%= context[0].title %></h2>
-  <h2>It Has: <%= context[0].numberOfPages %> Pages</h2>
-  <h2>You have read: <%= context[0].numberOfPages %>  (NEED TO CREATE) Pages</h2>
+<%= console.log(context)%>
+  <h2>You Are Reading: <%= context.results[0].title %></h2>
+  <h2>It Has: <%= context.results[0].numberOfPages %> Pages</h2>
+  <h2>You have read: <%= context.results[0].numberOfPages %>  (NEED TO CREATE) Pages</h2>
 
   <h3>All Done?</h3>
-  <form action="book/read/<%= context[0]._id %>">
+  <form action="book/read/<%= context.results[0]._id %>">
       I have read: <input type="number" name="pagesRead" placeholder="Enter number of pages read today"/> Pages
       <br />
-      <input type="hidden" name="bookId" value="<%= context[0]._id %>" />
+      <input type="hidden" name="bookId" value="<%= context.results[0]._id %>" />
+      <input type="hidden" name="userId" value="<%= context.userId %>" />
       <input type="Submit" value="Finish Reading" />
   </form>
   

@@ -25,6 +25,7 @@
 
     <form action="/book/<%= books[i]._id %>">
       <input type="submit" value="Start Reading <%= books[i].title %>" />
+      <input type="hidden" name="userId" value="<%= users %>" />
     </form>
 
     <% } %> 
