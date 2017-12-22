@@ -21,10 +21,10 @@
         <h5>Number Of Pages: <span><%= books[i].numberOfPages %></span></h5>
         <h5>Brief Description: <span><%= books[i].description %></span></h5>
       
-      </article>
+      </article> 
 
-    <form action="/book/<%= books[i]._id %>">
-      <input type="submit" value="Start Reading <%= books[i].title %>" />
+    <form method="POST" action="/book/<%= books[i]._id %>">
+      <input type="submit" name="bookTitleStart" value="Start Reading <%= books[i].title %>" />
       <input type="hidden" name="userId" value="<%= users %>" />
     </form>
 
