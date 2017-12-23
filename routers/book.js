@@ -16,19 +16,26 @@ router.post('/:id', (req, res) => {
   const userId = new ObjectID(req.body.userId);
 
   //Query user database to find this book ID, and then return the number of pages read from that book.
-  //IF IT DOES NOT EXIST, CREATE BOOK_INFO OBJECT WITH BOOK ID (BOOKINFO.BOOKID = BOOKID)
-  //IF IT DOES EXIST ALREADY, DO NOTHING AND NOT OVERRIDE
   db.collection("users").update(
     {"_id": userId},
-    {$set:{'bookInfo.bookId':bookId}}, 
+    {$set:{'bookInfo.bookId':req.params.id}}, 
       {upsert: true}
-    ) 
+    )
+
+    db.collection("users").find({_id:userId}).toArray((err,results) =>{
+      const historyArray = results[0].bookInfo.pageHistory;
+      let pageCount = 0;
+      for (var i = historyArray.length - 1; i >= 0; i--) {
+        historyArray[i].bookId == req.params.id ? pageCount += parseInt(historyArray[i].pagesRead) : false
+      }
+      context["pagesRead"] = pageCount;
+    }) 
 
   db.collection('books').find({_id:bookId}).toArray((err, results) =>{
     if(err) return console.log(err);
     context["results"] = results;
     context["userId"] = userId;
-    //TODO: Need to update to send (or cookie) userId
+
     res.render("read.ejs", {context:context})
 
   });
@@ -65,13 +72,14 @@ router.post('/read/:id', (req, res) => {
       //DO OPERATION HERE FOR ADDING THE NUMBER OF PAGES READ
       //for bookId, do math to increment and add start and stop by date
       db.collection('users').update(
-         {"_id":userObjectId,"bookInfo.bookId":bookId },
-         { $addToSet:{
-          "bookInfo.pageHistory":{
-              "pagesRead": context.pagesRead,
-              "dateRead": new Date()
-  
-            }
+         {"_id":userObjectId,"bookInfo.bookId":req.params.id },
+         { 
+            $addToSet:{
+              "bookInfo.pageHistory":{
+                "bookId":req.params.id,
+                "pagesRead": context.pagesRead,
+                "dateRead": new Date()
+              }
             }
           } )
        }
@@ -86,6 +94,10 @@ router.post('/read/:id', (req, res) => {
   });
 });
 
+
+router.post('/read/:id/done', (req, res) => {
+  //find the most recent entry, make sure it matches the bookId, then add in the new textarea fields
+});
 
 module.exports = router
 

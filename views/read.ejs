@@ -11,10 +11,10 @@
 <input type="text" placeholder="Search..." /> -->
 
 <section class="books">
-<%= console.log(context)%>
+
   <h2>You Are Reading: <%= context.results[0].title %></h2>
   <h2>It Has: <%= context.results[0].numberOfPages %> Pages</h2>
-  <h2>You have read: <%= context.results[0].numberOfPages %>  (NEED TO CREATE) Pages</h2>
+  <h2>You have read: <%= context.pagesRead %> Pages</h2>
 
   <h3>All Done?</h3>
   <form method="POST" action="/book/read/<%= context.results[0]._id %>">
