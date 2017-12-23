@@ -2,6 +2,9 @@
 <html>
 <head>
   <title>View the books here</title>
+  <style>
+    .hidden{display:none;}
+  </style>
 </head>
 <body>
 
@@ -13,17 +16,27 @@
 <section class="books">
 
   <h2>You Are Reading: <%= context.results[0].title %></h2>
-  <h2>It Has: <%= context.results[0].numberOfPages %> Pages</h2>
-  <h2>You have read: <%= context.pagesRead %> Pages</h2>
+  <h2>You have read: <%= context.pagesRead %> of <%= context.results[0].numberOfPages %> Pages</h2>
 
   <h3>All Done?</h3>
-  <form method="POST" action="/book/read/<%= context.results[0]._id %>">
-      I have read: <input type="number" name="pagesRead" placeholder="Enter number of pages read today"/> Pages
-      <br />
-      <input type="hidden" name="bookId" value="<%= context.results[0]._id %>" />
-      <input type="hidden" name="userId" value="<%= context.userId %>" />
-      <input type="Submit" value="Finish Reading" />
-  </form>
+
+  <button class="start">Start Reading</button>
+
+  <article class="finish hidden">
+    <form method="POST" action="/book/read/<%= context.results[0]._id %>">
+        I have read: <input type="number" name="pagesRead" placeholder="Enter number of pages read today"/> Pages
+        <br />
+        <input type="hidden" name="bookId" value="<%= context.results[0]._id %>" />
+        <input type="hidden" name="userId" value="<%= context.userId %>" />
+        <input type="Submit" value="Finish Reading" />
+    </form>
+  </article>
+
+  <article class="startModal hidden">
+    <h3>You Are Reading: <%= context.results[0].title %> </h3>
+    <h3>You Have Been Reading For: </h3> INSERT TIMER HERE
+    <button class="finish">Finish Reading</button>
+  </article>
   
 </section>
 
@@ -34,6 +47,22 @@
 <p>Start Reading!</p>
 <p>Submit modal.</p>
 <p>Show a timer with the listed interval (if selected)</p>
+
+
+  <script type="text/javascript">
+    const startReadingButton = document.querySelector(".start");
+    startReadingButton.addEventListener("click", function(e){
+      openModal(e)
+    });
+
+    function openModal(evt){
+      const startModal = document.querySelector(".startModal.hidden");
+      startModal.classList.remove("hidden");
+      startModal.classList.add("modalized");
+    }
+
+  </script>
+
 
 </body>
 </html>
