@@ -51,14 +51,32 @@
 
   <script type="text/javascript">
     const startReadingButton = document.querySelector(".start");
+    const finishReadingButton = document.querySelector("button.finish");
+
     startReadingButton.addEventListener("click", function(e){
       openModal(e)
     });
+
+    finishReadingButton.addEventListener("click", function(e){
+            console.log('close pushed')
+      closeModal(e)
+    })
 
     function openModal(evt){
       const startModal = document.querySelector(".startModal.hidden");
       startModal.classList.remove("hidden");
       startModal.classList.add("modalized");
+    }
+
+    function closeModal(evt){
+
+      const finishModal = document.querySelector("button.finish");
+      const openedModal = document.querySelector(".modalized");
+      openedModal.classList.add("hidden");
+      openedModal.classList.remove("modalized");
+      finishModal.classList.remove("hidden");
+      finishModal.classList.add("modalized");
+
     }
 
     //TODO: CLOSE MODAL FOR START AND OPEN FOR FINISH ON CLICK, WHICH HOUSES THE FORM
